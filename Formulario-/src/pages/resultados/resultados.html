@@ -1,0 +1,19 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Resultados</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card *ngIf="navParams.data">
+        <ion-card-header>
+            navParams.data
+        </ion-card-header>
+        <ion-card-content>
+            {{navParams.data | json}}
+        </ion-card-content>
+    </ion-card>
+</ion-content>

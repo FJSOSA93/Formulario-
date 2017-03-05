@@ -1,0 +1,89 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Formulario
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+ <form [formGroup]="Formulario" (ngSubmit)="sendData()">
+   <!-- Nombre ********************************* -->
+       <ion-item>
+        <ion-input type="text" ion-text formControlName="Nombre" placeholder="Nombre"></ion-input>
+      </ion-item>
+      <p *ngIf="Formulario.get('Nombre').hasError('required') && Nombre.touched" color="danger">Este campo es Requerido</p>
+
+<!-- Email ********************************* -->
+      <ion-item>
+        <ion-input formControlName="Email" ion-text type="email" placeholder="Email"></ion-input>
+      </ion-item>
+     
+      <p *ngIf="Formulario.get('Email').hasError('required') && Email.touched" color="danger" >Este campo es Requerido</p>
+      <p *ngIf="Formulario.get('Email').hasError('pattern') && Email.touched" color="danger">Esto no es un Email</p>
+
+   
+<!-- Fecha de Nacimiento ********************************* -->
+      <ion-item>
+          <ion-label>Fecha de Nacimiento</ion-label>
+          <ion-datetime formControlName="FechaN" displayFormat="MM/DD/YYYY"></ion-datetime>
+        </ion-item>
+        
+       <p *ngIf="Formulario.get('FechaN').hasError('required') && FechaN.touched" color="danger">Selecciona tu fecha de nacimiento</p>
+       
+<!-- Estado Civil ********************************* -->
+        <ion-item>
+            <ion-label>Estado Civil</ion-label>
+            <ion-select formControlName="EC" (ionCancel)="selectValid()" (ionChange)="selectValid()">
+              <ion-option value="Soltero">Soltero</ion-option>
+              <ion-option value="Union Libre">Union Libre</ion-option>
+              <ion-option value="Casado">Casado</ion-option>
+            </ion-select>
+         </ion-item>
+          
+          <p *ngIf="Formulario.get('EC').hasError('required') && EC.touched && !EC.isSelected" color="danger">Selecciona uno</p>
+   
+<!-- Genero ********************************* -->
+ <ion-list formControlName="Genero" radio-group>
+           <ion-label>Genero</ion-label>
+            <ion-item>
+              <ion-label>M</ion-label>
+              <ion-radio value="Masculino"></ion-radio>
+            </ion-item>
+            <ion-item>
+              <ion-label>F</ion-label>
+              <ion-radio value="Femenino"></ion-radio>
+            </ion-item>
+        </ion-list>
+    
+         <p *ngIf="Formulario.get('Genero').hasError('required') && Genero.touched " color="danger">Este campo es Requerido</p>
+      
+<!-- Intereses ********************************* -->
+          <ion-list formGroupName="Intereses">
+            <ion-label>Intereses</ion-label>
+            <ion-item>
+              <ion-label>Politica</ion-label>
+              <ion-checkbox  formControlName="Politica"></ion-checkbox>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>Musica</ion-label>
+              <ion-checkbox  formControlName="Musica"></ion-checkbox>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>Otros</ion-label>
+              <ion-checkbox  formControlName="Otros"></ion-checkbox>
+            </ion-item>
+
+          </ion-list>
+          <!--Texto para mostrar errores. ngIf comprueba la variable !myForm(formgrooup principal).controls.interests(formgroup anidado).valid-->
+        <p *ngIf="!Formulario.controls.Intereses.valid" color="danger" padding-left>Selecciona al menos un interés</p>
+
+        <!-- Boton ********************************* -->
+     <ion-fab right bottom>
+        <button ion-fab type="submit" [disabled]="!Formulario.valid"><ion-icon name="cloud-upload"></ion-icon></button>
+    </ion-fab>
+ </form>
+ 
+</ion-content>
